@@ -22,13 +22,19 @@
 
 import platform
 import os
+from colorama import Fore, Style
+
 
 MAJOR_VERSION: str = "1"
 MINOR_VERSION: str = "0"
 PATCH_VERSION: str = "0"
 
-LICENSE_LIST: list = ["MIT", "GNU", "APACHE", "UNLINCENSE"]
+LICENSE_LIST: list = ["MIT", "GNU", "APACHE", "UNLINCENSE", "ISC"]
 NEWLINE: str = "\n"
+
+RED: str = Fore.RED
+GREEN: str = Fore.GREEN
+RESET: str = Style.RESET_ALL
 
 
 def show_system_information() -> None:
