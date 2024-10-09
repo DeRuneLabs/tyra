@@ -20,4 +20,18 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import platform
+import os
+
 LICENSE_LIST: list = ["MIT", "GNU"]
+NEWLINE: str = "\n"
+
+
+def show_system_information() -> None:
+    print(f"Operating System: {platform.system()}")
+    print(f"User: {platform.node()}")
+    print(f"OS ver: {platform.version()}")
+    print(f"proc info: {platform.processor()}")
+    print(f"architecture: {platform.architecture()}")
+    print(f"python version: {platform.python_version()}")
+    print(f"python interpreter path: {os.__file__}")

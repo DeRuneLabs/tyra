@@ -20,7 +20,15 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import tyra.utils.constant as constant
 import tyra.generator.generate_license as license
 
 if __name__ == "__main__":
-    license.generate("mit", "arfy", 2024)
+    try:
+        constant.show_system_information()
+        print(constant.NEWLINE)
+        project_name = input("Project Name: ")
+        license_name = input("LICENSE [MIT, GNU]: ")
+        license.generate(license_name, project_name, 2024)
+    except Exception as error:
+        print(error)
