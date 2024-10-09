@@ -24,8 +24,8 @@ import tyra.utils.constant as constant
 import tyra.utils.license as license_desc
 from string import Template
 
-license_name = Template(license_desc)
-data_license = [data for data in constant.LICENSE_LIST]
+license_name: object = Template(license_desc)
+data_license: list = [data for data in constant.LICENSE_LIST]
 
 
 def generate(license_name: str, author_name: str, year: int) -> None:
@@ -37,21 +37,26 @@ def generate(license_name: str, author_name: str, year: int) -> None:
         author_name(str): author name
         year(int): license year
     """
-    if license_name is None or author_name is None or year is None:
-        print("license name or author name or year license cannot be empty")
-    else:
-        if isinstance(license_name, str) or isinstance(author_name, str) or isinstance(year, int):
-            if license_name.upper() in constant.LICENSE_LIST:
-                if license_name.upper() == "MIT":
-                    with open("LICENSE", "w") as generate_license:
-                        license_name_template = Template(license_desc.LICENSE_MIT)
-                        generate_license_template = license_name_template.safe_substitute(year=str(year), author=author_name)
-                        generate_license.write(generate_license_template)
-                if license_name.upper() == "GNU":
-                    with open("LICENSE", "w") as generate_license:
-                        generate_license.write(license_desc.LICENSE_GNU)
-            else:
-                print("cannot fiding, available license:")
-                print(*data_license)
+    if isinstance(license_name, str) or isinstance(author_name, str) or isinstance(year, int):
+        if license_name.upper() in constant.LICENSE_LIST:
+            if license_name.upper() == "MIT":
+                with open("LICENSE", "w") as generate_license:
+                    license_name_template = Template(license_desc.open_license_file(license_name))
+                    generate_license_template = license_name_template.safe_substitute(year=str(year), author=author_name)
+                    generate_license.write(generate_license_template)
+            if license_name.upper() == "GNU":
+                with open("LICENSE", "w") as generate_license:
+                    generate_license.write(license_desc.open_license_file(license_name))
+            if license_name.upper() == "APACHE":
+                with open("LICENSE", "w") as generate_license:
+                    license_name_template = Template(license_desc.open_license_file(license_name))
+                    generate_license_template = license_name_template.safe_substitute(year=str(year), author=author_name)
+                    generate_license.write(generate_license_template)
+            if license_name.upper() == "UNLINCENSE":
+                with open("LICENSE", "w") as generate_license:
+                    license_gen = license_desc.open_license_file(license_name)
+                    generate_license.write(license_gen)
         else:
-            raise TypeError("license name, author name must str and year must be int")
+            print("license not found")
+    else:
+        raise TypeError("license name, author name must str and year must be int")

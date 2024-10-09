@@ -23,7 +23,11 @@
 import platform
 import os
 
-LICENSE_LIST: list = ["MIT", "GNU"]
+MAJOR_VERSION: str = "1"
+MINOR_VERSION: str = "0"
+PATCH_VERSION: str = "0"
+
+LICENSE_LIST: list = ["MIT", "GNU", "APACHE", "UNLINCENSE"]
 NEWLINE: str = "\n"
 
 
@@ -35,3 +39,4 @@ def show_system_information() -> None:
     print(f"architecture: {platform.architecture()}")
     print(f"python version: {platform.python_version()}")
     print(f"python interpreter path: {os.__file__}")
+    print(f"Tyra project automator version {MAJOR_VERSION}.{MINOR_VERSION}.{PATCH_VERSION}")

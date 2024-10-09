@@ -22,13 +22,14 @@
 
 import tyra.utils.constant as constant
 import tyra.generator.generate_license as license
+from datetime import datetime
 
 if __name__ == "__main__":
     try:
         constant.show_system_information()
         print(constant.NEWLINE)
-        project_name = input("Project Name: ")
-        license_name = input("LICENSE [MIT, GNU]: ")
-        license.generate(license_name, project_name, 2024)
+        project_name: str = input("Project Name: ")
+        license_name: str = input(f"LICENSE {list(data for data in constant.LICENSE_LIST)}: ")
+        license.generate(license_name, project_name, datetime.now().strftime("%Y"))
     except Exception as error:
         print(error)
