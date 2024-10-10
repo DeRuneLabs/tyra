@@ -28,6 +28,17 @@ license_name: object = Template(license_desc)
 data_license: list = [data for data in constant.LICENSE_LIST]
 
 
+def _validate_input(license_name: str, author_name: str, year: int) -> None:
+    if not (isinstance(license_name, str) and isinstance(author_name, str) and isinstance(year, str)):
+        raise TypeError("license_name and author_name must be str, and year must be str")
+
+
+def _write_license_to_file(content: str) -> None:
+    with open("LICENSE", "w") as generate_license:
+        generate_license.write(content)
+    print("success!")
+
+
 def generate(license_name: str, author_name: str, year: int) -> None:
     """
     Generate license and write to file called name LICENSE
@@ -37,38 +48,16 @@ def generate(license_name: str, author_name: str, year: int) -> None:
         author_name(str): author name
         year(int): license year
     """
-    if isinstance(license_name, str) or isinstance(author_name, str) or isinstance(year, int):
-        if license_name.upper() in constant.LICENSE_LIST:
-            license_name_info: str = f"{constant.GREEN}Generate {constant.RESET} {license_name.capitalize()} License..."
-            if license_name.upper() == "MIT":
-                print(license_name_info)
-                with open("LICENSE", "w") as generate_license:
-                    license_name_template = Template(license_desc.open_license_file(license_name))
-                    generate_license_template = license_name_template.safe_substitute(year=str(year), author=author_name)
-                    generate_license.write(generate_license_template)
-                print("Success!")
-            if license_name.upper() == "GNU":
-                print(license_name_info)
-                with open("LICENSE", "w") as generate_license:
-                    generate_license.write(license_desc.open_license_file(license_name))
-            if license_name.upper() == "APACHE":
-                print(f"Generate {license_name} license...")
-                with open("LICENSE", "w") as generate_license:
-                    license_name_template = Template(license_desc.open_license_file(license_name))
-                    generate_license_template = license_name_template.safe_substitute(year=str(year), author=author_name)
-                    generate_license.write(generate_license_template)
-            if license_name.upper() == "UNLINCENSE":
-                print(license_name_info)
-                with open("LICENSE", "w") as generate_license:
-                    license_gen = license_desc.open_license_file(license_name)
-                    generate_license.write(license_gen)
-            if license_name.upper() == "ISC":
-                print(license_name_info)
-                with open("LICENSE", "w") as generate_license:
-                    license_name_template = Template(license_desc.open_license_file(license_name))
-                    generate_license_template = license_name_template.safe_substitute(year=str(year), author=author_name)
-                    generate_license.write(generate_license_template)
-        else:
-            print(f"{constant.RED} License not found {constant.RESET}")
-    else:
-        raise TypeError("license name, author name must str and year must be int")
+    _validate_input(license_name, author_name, year)
+    license_name_upper_text = license_name.upper()
+    if license_name_upper_text not in constant.LICENSE_LIST:
+        print(f"{constant.RED}License not found{constant.RESET}")
+        return
+    license_template = license_desc.open_license_file(license_name_upper_text)
+    license_name_info = f"{constant.GREEN}Generating {license_name.capitalize()}License... {constant.RESET}"
+    print(license_name_info)
+
+    templated_licenses = {"MIT", "APACHE", "ISC"}
+    if license_name_upper_text in templated_licenses:
+        license_template = Template(license_template).safe_substitute(year=str(year), author=author_name)
+    _write_license_to_file(license_template)

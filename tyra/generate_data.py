@@ -30,6 +30,6 @@ if __name__ == "__main__":
         print(constant.NEWLINE)
         project_name: str = input("Project Name: ")
         license_name: str = input(f"LICENSE {list(data for data in constant.LICENSE_LIST)}: ")
-        license.generate(license_name, project_name, datetime.now().strftime("%Y"))
+        license.generate(str(license_name), str(project_name), datetime.now().strftime("%Y"))
     except Exception as error:
         print(error)
