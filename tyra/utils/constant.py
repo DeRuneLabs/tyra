@@ -29,7 +29,7 @@ MAJOR_VERSION: str = "1"
 MINOR_VERSION: str = "0"
 PATCH_VERSION: str = "0"
 
-LICENSE_LIST: list = ["MIT", "GNU", "APACHE", "UNLICENSE", "ISC"]
+LICENSE_LIST: list = ["MIT", "GNU", "APACHE", "UNLICENSE", "ISC", "BSD3-CLAUSE"]
 NEWLINE: str = "\n"
 
 RED: str = Fore.RED

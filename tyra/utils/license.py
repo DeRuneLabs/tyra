@@ -20,7 +20,21 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import os
 import tyra.utils.constant as constant
+
+
+def list_information_license(directory: str) -> None:
+    """
+    Print list all license information
+
+    Paramter:
+        directory(str): directory name of list of license
+    """
+    data_list = [os.path.splitext(file)[0] for file in os.listdir(directory) if file.endswith(".txt")]
+    print("List License Information")
+    for list_license in data_list:
+        print(list_license)
 
 
 def open_license_file(filename: str) -> str:
@@ -40,3 +54,7 @@ def open_license_file(filename: str) -> str:
             return file_content
         except Exception as error_opening_file:
             raise error_opening_file
+
+
+if __name__ == "__main__":
+    list_information_license("license_dat")

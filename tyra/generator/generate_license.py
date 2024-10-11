@@ -29,14 +29,31 @@ data_license: list = [data for data in constant.LICENSE_LIST]
 
 
 def _validate_input(license_name: str, author_name: str, year: int) -> None:
+    """
+    Validate input
+
+    Parameter:
+        license_name(str): license name must be string data types
+        author_name(st): author name must be string data types
+        year(int): year must be integer
+
+    Throws:
+        TypeError: if license_name, author_name, year wrong data types
+    """
     if not (isinstance(license_name, str) and isinstance(author_name, str) and isinstance(year, str)):
-        raise TypeError("license_name and author_name must be str, and year must be str")
+        raise TypeError(f"{constant.RED}license_name and author_name must be str, and year must be str{constant.RESET}")
 
 
 def _write_license_to_file(content: str) -> None:
+    """
+    Writing license to files
+
+    Parameter:
+        content(str): content to writing and create LICENSE
+    """
     with open("LICENSE", "w") as generate_license:
         generate_license.write(content)
-    print("success!")
+    print(f"{constant.GREEN}Success generate license...!{constant.RESET}")
 
 
 def generate(license_name: str, author_name: str, year: int) -> None:
@@ -54,10 +71,10 @@ def generate(license_name: str, author_name: str, year: int) -> None:
         print(f"{constant.RED}License not found{constant.RESET}")
         return
     license_template = license_desc.open_license_file(license_name_upper_text)
-    license_name_info = f"{constant.GREEN}Generating {license_name.capitalize()}License... {constant.RESET}"
+    license_name_info = f"{constant.GREEN}Generating {license_name.capitalize()} License... {constant.RESET}"
     print(license_name_info)
 
-    templated_licenses = {"MIT", "APACHE", "ISC"}
+    templated_licenses = {"MIT", "APACHE", "ISC", "BSD3-CLAUSE"}
     if license_name_upper_text in templated_licenses:
         license_template = Template(license_template).safe_substitute(year=str(year), author=author_name)
     _write_license_to_file(license_template)
