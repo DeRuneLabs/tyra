@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 import tyra.utils.constant as constant
-import tyra.utils.license as license_desc
+import tyra.generator.license.license as license_desc
 from string import Template
 
 license_name: object = Template(license_desc)

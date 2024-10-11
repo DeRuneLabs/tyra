@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 import tyra.utils.constant as constant
-import tyra.generator.generate_license as license
+import tyra.generator.license.generate_license as license
 from datetime import datetime
 
 if __name__ == "__main__":

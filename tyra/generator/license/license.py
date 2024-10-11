@@ -49,12 +49,8 @@ def open_license_file(filename: str) -> str:
     """
     if filename.upper() in constant.LICENSE_LIST:
         try:
-            with open(f"utils/license_dat/{filename.lower()}.txt", "r") as license_file:
+            with open(f"generator/license/license_dat/{filename.lower()}.txt", "r") as license_file:
                 file_content: str = license_file.read()
             return file_content
         except Exception as error_opening_file:
             raise error_opening_file
-
-
-if __name__ == "__main__":
-    list_information_license("license_dat")
